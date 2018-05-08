@@ -1,7 +1,14 @@
-import md5,time
+import time,hashlib
+import salt_stretch
 
-outputfile = open("passwords_md5.csv","w+")
+def stretchPass(password, salt, r):
+	x = "0"
+	for i in range(0,r):
+		x = hashlib.sha256(x+password+salt).digest()
+	return x
+
+outputfile = open("passwords_sha256.csv","w+")
 for line in open("passwords_plain.txt","r"):
-    outputfile.write(md5.new(line.strip()).hexdigest() + "\n")
+	outputfile.write(stretchPass(line.strip(),"saltysalt",7) + "\n")
 
 outputfile.close()
