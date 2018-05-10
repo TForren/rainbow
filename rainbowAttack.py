@@ -1,11 +1,12 @@
+import time
 
 rainbow = open("dictionary_rainbow.csv","r")
-passwordsfile = open("user_pass_md5.csv","r")
+passwordsfile = open("shadowFile.csv","r")
 rainbowDict = {}
 
 for line in rainbow:
     split = line.split()
-    rainbowDict[split[1]] = split[0]
+    	rainbowDict[split[1]] = split[0]
 
 passwords = passwordsfile.readlines()
 
