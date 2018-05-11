@@ -21,9 +21,8 @@ startTime = time.time()
 for line in passwords:
     split = line.split()
     if split[1] in rainbowDict:
-        discovered[split[0]] = rainbowDict[split[1]]
+        print "cracked:",split[0], rainbowDict[split[1]]
 totalTime = (time.time() - startTime)
-print len(discovered),"discovered"
 print totalTime,"seconds"
 
 """

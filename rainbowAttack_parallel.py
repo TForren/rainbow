@@ -19,24 +19,25 @@ passwordsfile.close()
 userTuples = {}
 discovered = {}
 
-print len(passwords), "passwords read in"
+print "passwords:", len(passwords)
+print "cores:", num_cores
+ 
 startTime = time.time()
 
 def checkHash(line):
     __split = line.split()
     if __split[1] in rainbowDict:
-        discovered[__split[0]] = rainbowDict[__split[1]]
+	print "cracked:",__split[0],rainbowDict[__split[1]]
 
-Parallel(n_jobs=num_cores)(delayed(checkHash)(line) for line in passwords
+Parallel(n_jobs=1)(delayed(checkHash)(line) for line in passwords)
 
-#for line in passwords:
-#    split = line.split()
-#    if split[1] in rainbowDict:
-#        discovered[split[0]] = rainbowDict[split[1]]
-#
-
+"""
+for line in passwords:
+    split = line.split()
+    if split[1] in rainbowDict:
+        print "cracked:", split[0]], rainbowDict[split[1]]
+"""
 totalTime = (time.time() - startTime)
-print len(discovered),"discovered"
 print totalTime,"seconds"
 
 
