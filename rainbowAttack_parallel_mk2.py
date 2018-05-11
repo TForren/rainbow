@@ -35,15 +35,18 @@ def checkChunk(chunk):
     for __line in chunk:
 	__split = __line.split()
 	if __split[1] in rainbowDict:
-		print "cracked:",__split[0],rainbowDict[__split[1]]
+		True
+		#print "cracked:",__split[0],rainbowDict[__split[1]]
 
 startTime = time.time()
+startClock = time.clock()
 
 Parallel(n_jobs=num_cores)(delayed(checkChunk)(chunk) for chunk in passwordChunks)
 
 totalTime = (time.time() - startTime)
+totalClock = (time.clock() - startClock)
 print totalTime,"seconds"
-
+print totalClock,"clock"
 
 #crackedPassFile = open("crackedAccounts.txt","w+")
 #for user in discovered:

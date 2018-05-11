@@ -1,29 +1,35 @@
 import time
+x = 0
+def inner(i):
+    global x
+    x = x + i
+    
+def outer_1():
+    for i in range(100000): 
+        inner(i)
 
-
-rainbowDict = {"dictionaryword":"correspondinghash"}
-
-testline = "user1 correspondinghash"
-
-def checkHash(line):
-	__split = line.split()
-	if __split[1] in rainbowDict:
-		print "cracked",__split[0],rainbowDict[__split[1]]
 
 startTime = time.time()
 startClock = time.clock()
-
-split = testline.split()
-if split[1] in rainbowDict:
-	print "cracked",__split[0],rainbowDict[__split[1]]
+outer_1()
 totalTimeNonFunc = (time.time() - startTime)
 totalClockNonFunc = (time.clock() - startClock)
 print "non function time:",totalTimeNonFunc
 print "non function clock:",totalClockNonFunc
 
+x = 0
+def aggregate(list):
+    global x
+    for i in list:
+        x = x + i
+
+def outer_2():
+    aggregate(range(100000))
+
+
 startTime = time.time()
 startClock = time.clock()
-checkHash(testline)
+outer_2()
 totalTimeFunc = (time.time() - startTime)
 totalClockFunc = (time.clock() - startClock)
 print "function time:",totalTimeFunc

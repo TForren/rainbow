@@ -23,6 +23,7 @@ print "passwords:", len(passwords)
 print "cores:", num_cores
  
 startTime = time.time()
+startClock = time.clock()
 
 def checkHash(line):
     __split = line.split()
@@ -38,7 +39,9 @@ for line in passwords:
         print "cracked:", split[0]], rainbowDict[split[1]]
 """
 totalTime = (time.time() - startTime)
+totalClock = (time.clock() - startClock)
 print totalTime,"seconds"
+print totalClock,"clock"
 
 
 #crackedPassFile = open("crackedAccounts.txt","w+")
