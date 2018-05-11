@@ -16,27 +16,31 @@ passwords = passwordsfile.readlines()
 rainbow.close()
 passwordsfile.close()
 
-userTuples = {}
-discovered = {}
+passwordChunks = [] 
+chunkSize = (len(passwords) / num_cores)
+for i in range(0,num_cores):
+    passwordChunks.append(passwords[chunkSize*i:chunkSize*(i+1)])
+
 
 print "passwords:", len(passwords)
 print "cores:", num_cores
- 
-startTime = time.time()
 
+"""DEP"""
 def checkHash(line):
     __split = line.split()
     if __split[1] in rainbowDict:
 	print "cracked:",__split[0],rainbowDict[__split[1]]
 
-Parallel(n_jobs=num_cores)(delayed(checkHash)(line) for line in passwords)
+def checkChunk(chunk):
+    for __line in chunk:
+	__split = __line.split()
+	if __split[1] in rainbowDict:
+		print "cracked:",__split[0],rainbowDict[__split[1]]
 
-"""
-for line in passwords:
-    split = line.split()
-    if split[1] in rainbowDict:
-        print "cracked:", split[0]], rainbowDict[split[1]]
-"""
+startTime = time.time()
+
+Parallel(n_jobs=num_cores)(delayed(checkChunk)(chunk) for chunk in passwordChunks)
+
 totalTime = (time.time() - startTime)
 print totalTime,"seconds"
 
