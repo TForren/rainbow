@@ -1,10 +1,9 @@
 import time,hashlib
-import salt_stretch
 
 def stretchPass(password, salt, r):
 	x = "0"
 	for i in range(0,r):
-		x = hashlib.sha256(x+password+salt).digest()
+		x = hashlib.sha256(x+password+salt).hexdigest()
 	return x
 
 outputfile = open("passwords_sha256.csv","w+")
